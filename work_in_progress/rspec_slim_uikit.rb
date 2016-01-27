@@ -85,15 +85,6 @@ gsub_file('Gemfile', "gem 'spring'", "")
 run 'bundle install' 
 
 
-# APPLICATION.RB
-inject_into_file 'config/application.rb', after: /^end$/ do
-  "\n\nrequire 'trailblazer/rails/railtie'"
-end
-inject_into_file 'config/application.rb', after: "config.active_record.raise_in_transactional_callbacks = true" do
-  "\n    config.generators do |g|\n      g.template_engine :slim\n    end"
-end
-
-
 # INITIALIZERS
 
 generate 'simple_form:install'
@@ -101,7 +92,7 @@ generate 'simple_form:install --bootstrap'
 generate 'kaminari:views default -e slim'
 
 inject_into_file 'app/assets/javascripts/application.js', :after => "//= require jquery_ujs" do
-  "\n//= require bootstrap"
+  "\n//=require bootstrap"
 end
 
 remove_file 'app/assets/stylesheets/application.css'
@@ -213,27 +204,27 @@ CODE
 remove_file 'app/controllers/application_controller.rb'
 create_file 'app/controllers/application_controller.rb' do
   <<-CODE
-class ApplicationController < ActionController::Base
-  include Trailblazer::Operation::Controller
+  class ApplicationController < ActionController::Base
+    include Trailblazer::Operation::Controller
 
-  protect_from_forgery with: :exception
+    protect_from_forgery with: :exception
 
-  def tyrant
-    Tyrant::Session::new(request.env["warden"])
+    def tyrant
+      Tyrant::Session::new(request.env["warden"])
+    end
+    helper_method :tyrant
+
+    def process_params!(params)
+      params.merge!(current_user: tyrant.current_user)
+    end
+    
+    rescue_from Trailblazer::NotAuthorizedError, with: :user_not_authorized
+
+    def user_not_authorized
+      flash[:alert] = "Not authorized, my friend."
+      redirect_to root_path
+    end
   end
-  helper_method :tyrant
-
-  def process_params!(params)
-    params.merge!(current_user: tyrant.current_user)
-  end
-  
-  rescue_from Trailblazer::NotAuthorizedError, with: :user_not_authorized
-
-  def user_not_authorized
-    flash[:alert] = "Not authorized, my friend."
-    redirect_to root_path
-  end
-end
   CODE
 end
 
