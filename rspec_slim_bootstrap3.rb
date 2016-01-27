@@ -252,9 +252,37 @@ html
 
   body
     .container
+      = render 'layouts/messages'
       == yield
   CODE
 end
+
+# Messages Partial
+create_file 'app/views/layouts/_messages.html.slim' do
+  <<-CODE
+- flash.each do |type, message|
+  .alert.alert-dismissible.fade.in class=(message_class_for(type))
+    a href="#" data-dismiss="alert" class="close" &times;
+    .text-center = message
+  CODE
+end
+
+# MessagesHelper
+create_file 'app/helpers/messages_helper.rb' do
+  <<-CODE
+module MessagesHelper
+  def message_class_for(flash_type)
+    {
+      :success => 'alert-success',
+      :error => 'alert-danger',
+      :alert => 'alert-warning',
+      :notice => 'alert-info'
+    } [flash_type.to_sym] || flash_type.to_s
+  end
+end
+  CODE
+end
+
 
 # HOME CONTROLLER
 generate(:controller, 'home', 'index')
