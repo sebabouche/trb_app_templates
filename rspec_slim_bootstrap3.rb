@@ -13,6 +13,7 @@ gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'therubyracer', platforms: 'ruby'
 gem 'bootstrap-kaminari-views'
+gem 'slim-rails'
 
 # TRAILBLAZER
 gem 'trailblazer'
