@@ -90,9 +90,10 @@ run 'bundle install'
 inject_into_file 'config/application.rb', after: /^end$/ do
   "\n\nrequire 'trailblazer/rails/railtie'"
 end
-inject_into_file 'config/application.rb', after: "config.active_record.raise_in_transactional_callbacks = true" do
-  "\n    config.generators do |g|\n      g.template_engine :slim\n    end"
-end
+
+#inject_into_file 'config/application.rb', after: "config.active_record.raise_in_transactional_callbacks = true" do
+#  "\n    config.generators do |g|\n      g.template_engine :slim\n    end"
+#end
 
 
 # INITIALIZERS
