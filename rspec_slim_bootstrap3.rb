@@ -239,6 +239,22 @@ end
   CODE
 end
 
+# Slim version of app/views/layouts/application.html.erb
+remove_file 'app/views/layouts/application.html.erb'
+create_file 'app/views/layouts/application.html.slim' do
+  <<-CODE
+doctype html
+html
+  head
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  body
+    .container
+      == yield
+  CODE
+end
 
 # HOME CONTROLLER
 generate(:controller, 'home', 'index')
