@@ -3,8 +3,9 @@ These __Rails App Templates__ will help you build Trailblazer apps with a single
 
 Feel free to contribute and we'll add more setups here.
 
-## TRB + RSpec + Slim + Bootstrap 3
-Plus tyrant, paperdragon…
+## TRB + Rails
+### RSpec + Slim + Bootstrap 3
+_+ Tyrant + Paperdragon…_
 
 __Install using :__
 
