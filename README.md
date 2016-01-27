@@ -4,10 +4,8 @@ These __Rails App Templates__ will help you build Trailblazer apps with a single
 Feel free to contribute and we'll add more setups here.
 
 ## TRB + RSpec + Slim + Bootstrap 3
-Install it using :
+Plus tyrant, paperdragon…
 
-	rails new app_name 
-		--skip-spring 
-		-d postgresql
-		-T
-		-m ~/ruby/app_templates/trailblazer/rspec_slim_bootstrap3.rb
+__Install using :__
+
+`rails new app_name --skip-spring -d postgresql -T -m https://raw.githubusercontent.com/sebabouche/trb_app_templates/master/rspec_slim_bootstrap3.rb`
