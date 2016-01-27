@@ -296,6 +296,7 @@ git :init
 git add: '.'
 git commit: %Q{ -m "Initial commit" }
 
-rake 'db:setup'
-rake 'db:setup RAILS_ENV=test'
+rake 'db:create'
+rake 'db:migrate'
+rake 'db:migrate spec'
 
